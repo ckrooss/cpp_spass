@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(main)
+project(visitor_test)
 set (CMAKE_CXX_STANDARD 14)
 
 # cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -8,7 +8,7 @@ set (CMAKE_CXX_STANDARD 14)
 add_compile_options("-fsanitize=address")
 link_libraries("-fsanitize=address")
 
-add_executable(main
+add_executable(${PROJECT_NAME}
   src/main.cpp
   src/Visitor.cpp
   src/Bilanzposten.cpp

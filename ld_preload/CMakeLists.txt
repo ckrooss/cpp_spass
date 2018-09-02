@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(c++_spass)
+project(ld_preload)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -7,11 +7,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # set (CMAKE_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
 
 
-add_executable(main
+add_executable(${PROJECT_NAME}
     main.cpp
 )
 
-target_link_libraries(main good)
+target_link_libraries(${PROJECT_NAME}
+    good
+)
 
 
 add_library(good SHARED
