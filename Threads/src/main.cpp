@@ -40,7 +40,7 @@ std::vector<std::thread> start_threads(int number)
     return threads;
 }
 
-void join_all(const std::vector<std::thread> &threads) {
+void join_all(std::vector<std::thread> &threads) {
     for (auto &t: threads) {
         t.join();
     }

@@ -1,17 +1,17 @@
+#include "Expensive.h"
+#include <atomic>
 #include <cassert>
+#include <chrono>
 #include <condition_variable>
 #include <iostream>
 #include <mutex>
 #include <pthread.h>
-#include <atomic>
 #include <string>
 #include <thread>
 #include <vector>
-#include <chrono>
-#include "Expensive.h"
 
 using namespace std;
-using namespace literals::chrono_literals;
+using namespace std::literals::chrono_literals;
 
 const int NTHREADS = 5;
 const int NWORK = 100;

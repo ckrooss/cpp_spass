@@ -7,24 +7,18 @@
 using namespace std;
 using Data = vector<string>;
 
-
 //Return map[key] if it exists in the map, otherwise return the default value
-const string& get_default(const map<string, string>& map,
-                          const string& key,
-                          const string& dflt)
-{
+const string& get_default(const map<string, string>& map, const string& key, const string& dflt) {
     auto pos = map.find(key);
     return (pos != map.end() ? pos->second : dflt);
 }
 
 // give me a vector, nicely protected by using shared_ptr
-shared_ptr<Data> get_data()
-{
+shared_ptr<Data> get_data() {
     auto data = make_shared<Data>();
     data->push_back("4");
     return data;
 }
-
 
 int main() {
     map<string, string> m;
@@ -39,6 +33,6 @@ int main() {
     auto& v2 = get_default(m, "key3", "default_value_3");
     cout << "key3 is: " << v2 << endl;
 
-    auto &d = *get_data();
+    auto& d = *get_data();
     cout << "Data is: " << d[0] << endl;
 }
