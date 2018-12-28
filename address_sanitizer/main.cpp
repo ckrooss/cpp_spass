@@ -1,8 +1,8 @@
-// g++ main.cpp --std=c++14 -g -Wall -o main
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 using Data = vector<string>;

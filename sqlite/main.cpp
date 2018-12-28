@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 
 
 int cb(void* /*none*/,int cols, char** column_text,char** column_names) {
@@ -24,7 +25,7 @@ int _main() {
 
 int main() {
     FILE *fd;
-    char* new_err = "OH HAI";
+    const char* new_err{"OH HAI"};
     printf("main: %d\n", main);
     if(0 == (fd = fopen("/asd", "r"))) {
         printf("%s\n", strerror(errno));

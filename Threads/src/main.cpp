@@ -5,6 +5,7 @@
 #include <vector>
 #include <mutex>
 #include <atomic>
+#include <cassert>
 
 using namespace std::chrono_literals;
 
