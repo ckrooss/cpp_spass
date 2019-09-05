@@ -7,7 +7,7 @@ class Container {
 public:
     using value_type = T;
 
-    Container(const T& value) {
+    Container(const T& value = {}) {
         m_value = value;
     }
 
@@ -102,28 +102,32 @@ template<typename T, typename P>
 };
 
 struct Seconds : public Container<time_t, Seconds> {
-    Seconds(value_type value) : Container(value) {};
+    Seconds() = default;
+    Seconds(const value_type& value) : Container(value) {};
     std::string getUnit() const {
         return "s";
     }
 };
 
 struct Kph : public Container<int, Kph> {
-    Kph(value_type value) : Container(value) {};
+    Kph() = default;
+    Kph(const value_type& value) : Container(value) {};
     std::string getUnit() const {
         return "km/h";
     }
 };
 
 struct Risk : public Container<int, Risk> {
-    Risk(value_type value) : Container(value) {};
+    Risk() = default;
+    Risk(const value_type& value) : Container(value) {};
     std::string getUnit() const {
         return "risk";
     }
 };
 
 struct Meters : public Container<int, Meters> {
-    Meters(value_type value) : Container(value) {};
+    Meters() = default;
+    Meters(const value_type& value) : Container(value) {};
     Seconds operator/(const Kph& other) {
         return {m_value / other.get()};
     }
@@ -152,7 +156,7 @@ int main() {
 
     std::cout << x << " / " << y << " = " << x / y << std::endl;
 
-    std::cout << "at v=" << y << " the relative risk is " << speed_to_risk.at(y) << std::endl;
+    std::cout << "at v=" << y << " the relative risk is " << speed_to_risk[y] << std::endl;
 
 
     // error: invalid operands to binary expression ('Kph' and 'Meters')
