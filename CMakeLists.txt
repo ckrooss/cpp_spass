@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
+project(Project)
 
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -13,3 +14,6 @@ add_subdirectory(imaginary)
 add_subdirectory(ld_preload)
 add_subdirectory(sqlite)
 add_subdirectory(template_class)
+add_subdirectory(modules)
+add_subdirectory(pimpl)
+add_subdirectory(unit_types)

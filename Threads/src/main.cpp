@@ -12,8 +12,8 @@ using namespace std::chrono_literals;
 const int N_THREADS = 100;
 const int N_COUNTS = 100;
 
-//static int cnt = 0;
-static std::atomic_int cnt{0};
+static int cnt = 0;
+//static std::atomic_int cnt{0};
 
 static std::mutex cnt_lock;
 
