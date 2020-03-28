@@ -9,11 +9,10 @@ typedef struct {
     char b[5];
 } c_t;
 
-int main () {
+int main() {
     c_t o;
 
-
-    for (int idx=0; idx <= 4; idx++) {
+    for (int idx = 0; idx <= 4; idx++) {
         cout << std::to_string(o.b[idx]) << endl;
     }
 }

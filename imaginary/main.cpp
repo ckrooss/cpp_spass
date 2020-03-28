@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(){
+int main() {
     auto a = 1_r;
     auto b = 1_im;
     auto c = std::move(a + std::move(b));

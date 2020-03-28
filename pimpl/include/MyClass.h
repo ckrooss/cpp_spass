@@ -1,10 +1,11 @@
 #include <iostream>
 
 class MyClass {
-public:
+  public:
     MyClass(int x);
     void fn();
-private:
+
+  private:
     class MyClass_p;
     MyClass_p* d;
 };

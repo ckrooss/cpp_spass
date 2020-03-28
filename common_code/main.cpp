@@ -1,36 +1,50 @@
 #include <iostream>
-#define whoami() printf(__PRETTY_FUNCTION__);printf("\n")
+#define whoami()                                                                                                                                     \
+    printf(__PRETTY_FUNCTION__);                                                                                                                     \
+    printf("\n")
 
 class CommonUtil {
-public:
+  public:
     CommonUtil() {
         whoami();
     }
 
-    virtual ~CommonUtil() {whoami();}
+    virtual ~CommonUtil() {
+        whoami();
+    }
 
-    virtual void a() {std::terminate();}
+    virtual void a() {
+        std::terminate();
+    }
 };
 
 class SpecialUtil : public CommonUtil {
-public:
+  public:
     SpecialUtil() {
         whoami();
     }
 
-    ~SpecialUtil() {whoami();}
+    ~SpecialUtil() {
+        whoami();
+    }
 
-    void a() override {whoami();}
-    void b() {whoami();}
+    void a() override {
+        whoami();
+    }
+    void b() {
+        whoami();
+    }
 };
 
 class CommonManager {
-public:
+  public:
     CommonManager(CommonUtil& util) : m_util(util) {
         whoami();
     }
 
-    virtual ~CommonManager() {whoami();}
+    virtual ~CommonManager() {
+        whoami();
+    }
 
     void func_a() {
         whoami();
@@ -41,14 +55,16 @@ public:
 };
 
 class SpecialManager : public CommonManager {
-public:
+  public:
     SpecialManager() : CommonManager(m_util) {
         whoami();
         int* leak = new int[25];
         printf("%d", leak[25]);
     }
 
-    ~SpecialManager() {whoami();}
+    ~SpecialManager() {
+        whoami();
+    }
 
     void func_b() {
         whoami();

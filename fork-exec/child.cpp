@@ -5,6 +5,6 @@
 
 using namespace std::literals::chrono_literals;
 
-int main(){
+int main() {
     return 0;
 }

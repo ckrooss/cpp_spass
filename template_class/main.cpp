@@ -12,7 +12,6 @@ struct Container {
     T m_content;
 };
 
-
 int main() {
     Container<double> a{2.0};
     Container<string> b{"Peter"};

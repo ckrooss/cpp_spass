@@ -40,7 +40,7 @@ struct Slow {
     }
 };
 
-int main(){
+int main() {
     cout << "Building vector..." << endl;
     vector<Slow> slows{0};
     cout << "done" << endl;
@@ -50,7 +50,7 @@ int main(){
     cout << "done" << endl;
 
     cout << "Starting for loop..." << endl;
-    for (auto& _: slows) {
+    for (auto& _ : slows) {
         cout << "x";
     }
     cout << "done" << endl;

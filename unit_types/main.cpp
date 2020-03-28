@@ -2,9 +2,9 @@
 #include <map>
 #include <unordered_map>
 
-template<typename T, typename P>
+template <typename T, typename P>
 class Container {
-public:
+  public:
     using value_type = T;
 
     Container(const T& value = {}) {
@@ -15,7 +15,7 @@ public:
         m_value = value;
     }
 
-// operations with T
+    // operations with T
     Container operator=(const T& value) {
         m_value = value;
         return *this;
@@ -45,7 +45,7 @@ public:
         m_value += value;
     }
 
-// operations with P (P inherits from Container<T, P>)
+    // operations with P (P inherits from Container<T, P>)
     Container operator=(const P& other) {
         m_value = other.m_value;
         return *this;
@@ -80,7 +80,7 @@ public:
         return ++m_value;
     }
 
-//Other stuff
+    //Other stuff
     T get() const {
         return m_value;
     }
@@ -89,56 +89,48 @@ public:
         return "";
     }
 
-    protected:
-        T m_value;
+  protected:
+    T m_value;
 };
 
 // Hash function is needed to use Container as a key for std::unordered_map
 struct ContainerHash {
-template<typename T, typename P>
-  std::size_t operator()(const Container<T, P>& container) const {
-    return std::hash<T>()(container.get());
-  }
+    template <typename T, typename P>
+    std::size_t operator()(const Container<T, P>& container) const {
+        return std::hash<T>()(container.get());
+    }
 };
 
-#define MAKE_TYPE(NAME, BASETYPE) \
-struct NAME : public Container<BASETYPE, NAME> { \
-    NAME() = default; \
-    NAME(const value_type& value) : Container(value) {}; \
-    std::string getUnit() const { \
-        return "NAME"; \
-    } \
-}
+#define MAKE_TYPE(NAME, BASETYPE)                                                                                                                    \
+    struct NAME : public Container<BASETYPE, NAME> {                                                                                                 \
+        NAME() = default;                                                                                                                            \
+        NAME(const value_type& value) : Container(value){};                                                                                          \
+        std::string getUnit() const {                                                                                                                \
+            return "NAME";                                                                                                                           \
+        }                                                                                                                                            \
+    }
 
-#define MAKE_COMPLEX_TYPE(NAME, BASETYPE) \
-struct NAME : public Container<BASETYPE, NAME> { \
-    NAME() = default; \
-    NAME(const value_type& value) : Container(value) {}; \
-    std::string getUnit() const { \
-        return "NAME"; \
-    } \
+#define MAKE_COMPLEX_TYPE(NAME, BASETYPE)                                                                                                            \
+    struct NAME : public Container<BASETYPE, NAME> {                                                                                                 \
+        NAME() = default;                                                                                                                            \
+        NAME(const value_type& value) : Container(value){};                                                                                          \
+        std::string getUnit() const {                                                                                                                \
+            return "NAME";                                                                                                                           \
+        }
 
 MAKE_TYPE(Seconds, time_t);
 MAKE_TYPE(Kph, int);
 MAKE_TYPE(Risk, int);
 
-MAKE_COMPLEX_TYPE(Meters, int) \
-    Seconds operator/(const Kph& other) {return {m_value / other.get()};} \
-};
+MAKE_COMPLEX_TYPE(Meters, int)
+Seconds operator/(const Kph& other) {
+    return {m_value / other.get()};
+}
+}
+;
 
 using speed_to_risk_t = std::unordered_map<Kph, Risk, ContainerHash>;
-static speed_to_risk_t speed_to_risk = {
-    {1, 0},
-    {2, 0},
-    {3, 0},
-    {4, 0},
-    {5, 1},
-    {6, 2},
-    {7, 3},
-    {8, 4},
-    {9, 5},
-    {10, 7}
-};
+static speed_to_risk_t speed_to_risk = {{1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 1}, {6, 2}, {7, 3}, {8, 4}, {9, 5}, {10, 7}};
 
 int main() {
     Meters x{800};
@@ -147,7 +139,6 @@ int main() {
     std::cout << x << " / " << y << " = " << x / y << std::endl;
 
     std::cout << "at v=" << y << " the relative risk is " << speed_to_risk[y] << std::endl;
-
 
     // error: invalid operands to binary expression ('Kph' and 'Meters')
     // std::cout << x << " + " << y << " = " << x + y << std::endl;
