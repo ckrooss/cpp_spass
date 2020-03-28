@@ -12,13 +12,12 @@ using namespace std::chrono_literals;
 const int N_THREADS = 100;
 const int N_COUNTS = 100;
 
-static int cnt = 0;
-//static std::atomic_int cnt{0};
+//static int cnt = 0;
+static std::atomic_int cnt{0};
 
 static std::mutex cnt_lock;
 
-void counter()
-{
+void counter() {
     int local_cnt = 0;
 
     while (local_cnt < N_COUNTS) {
@@ -30,8 +29,7 @@ void counter()
     }
 }
 
-std::vector<std::thread> start_threads(int number)
-{
+std::vector<std::thread> start_threads(int number) {
     std::vector<std::thread> threads;
     for (int idx = number; idx > 0; idx--) {
         std::thread t(counter);
@@ -41,14 +39,13 @@ std::vector<std::thread> start_threads(int number)
     return threads;
 }
 
-void join_all(std::vector<std::thread> &threads) {
-    for (auto &t: threads) {
+void join_all(std::vector<std::thread>& threads) {
+    for (auto& t : threads) {
         t.join();
     }
 }
 
-int main()
-{
+int main() {
     assert(cnt.is_lock_free());
     auto threads = start_threads(N_THREADS);
     assert(threads.size() == N_THREADS);

@@ -101,39 +101,29 @@ template<typename T, typename P>
   }
 };
 
-struct Seconds : public Container<time_t, Seconds> {
-    Seconds() = default;
-    Seconds(const value_type& value) : Container(value) {};
-    std::string getUnit() const {
-        return "s";
-    }
-};
+#define MAKE_TYPE(NAME, BASETYPE) \
+struct NAME : public Container<BASETYPE, NAME> { \
+    NAME() = default; \
+    NAME(const value_type& value) : Container(value) {}; \
+    std::string getUnit() const { \
+        return "NAME"; \
+    } \
+}
 
-struct Kph : public Container<int, Kph> {
-    Kph() = default;
-    Kph(const value_type& value) : Container(value) {};
-    std::string getUnit() const {
-        return "km/h";
-    }
-};
+#define MAKE_COMPLEX_TYPE(NAME, BASETYPE) \
+struct NAME : public Container<BASETYPE, NAME> { \
+    NAME() = default; \
+    NAME(const value_type& value) : Container(value) {}; \
+    std::string getUnit() const { \
+        return "NAME"; \
+    } \
 
-struct Risk : public Container<int, Risk> {
-    Risk() = default;
-    Risk(const value_type& value) : Container(value) {};
-    std::string getUnit() const {
-        return "risk";
-    }
-};
+MAKE_TYPE(Seconds, time_t);
+MAKE_TYPE(Kph, int);
+MAKE_TYPE(Risk, int);
 
-struct Meters : public Container<int, Meters> {
-    Meters() = default;
-    Meters(const value_type& value) : Container(value) {};
-    Seconds operator/(const Kph& other) {
-        return {m_value / other.get()};
-    }
-    std::string getUnit() const {
-        return "m";
-    }
+MAKE_COMPLEX_TYPE(Meters, int) \
+    Seconds operator/(const Kph& other) {return {m_value / other.get()};} \
 };
 
 using speed_to_risk_t = std::unordered_map<Kph, Risk, ContainerHash>;
