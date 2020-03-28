@@ -6,7 +6,7 @@ set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitiz
 
 add_executable(${PROJECT_NAME}
     main.cpp
-    include/complex.h
+    include/complex_numbers.h
 )
 
 include_directories(

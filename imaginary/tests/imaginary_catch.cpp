@@ -1,6 +1,6 @@
 #include <catch.hpp>
 
-#include "complex.h"
+#include "complex_numbers.h"
 
 TEST_CASE("complex-init", "init") {
     auto a = 2_r;
