@@ -1,9 +1,9 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+#include <cstdlib>
+#include <cerrno>
+#include <cstring>
 
 int cb(void* /*none*/, int cols, char** column_text, char** column_names) {
     std::cout << "yay\n";
@@ -30,7 +30,7 @@ int _main() {
 int main() {
     FILE* fd;
     const char* new_err{"OH HAI"};
-    if (0 == (fd = fopen("/asd", "r"))) {
+    if (nullptr == (fd = fopen("/asd", "r"))) {
         printf("%s\n", strerror(errno));
         printf("%s\n", strerror(errno));
         memcpy(strerror(errno), new_err, 7);

@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     }
     for (int i = 1; i < argc; i++) {
         void* shared_lib = dlopen(argv[i], RTLD_LAZY);
-        void (*module)() = reinterpret_cast<void (*)()>(dlsym(shared_lib, "module"));
+        auto module = reinterpret_cast<void (*)()>(dlsym(shared_lib, "module"));
         if (module) {
             module();
             dlclose(shared_lib);

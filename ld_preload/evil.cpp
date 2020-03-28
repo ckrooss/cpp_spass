@@ -6,5 +6,5 @@
 
 using Data = std::vector<std::string>;
 std::shared_ptr<Data> get_data() {
-    return 0;
+    return nullptr;
 }
