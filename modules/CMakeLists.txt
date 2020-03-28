@@ -11,5 +11,9 @@ add_library(modB
     SHARED
     modB.cpp)
 
+target_link_libraries(run
+    dl
+)
+
 
 SET(CXX_STANDARD 11)
