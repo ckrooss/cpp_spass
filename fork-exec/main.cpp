@@ -15,7 +15,9 @@ int main() {
         std::cout << "[" << std::to_string(getpid()) << "] ";
         std::cout << "I am the child" << std::endl;
         std::this_thread::sleep_for(5s);
-        execve("./child", nullptr, nullptr);
+        char* argv[] = { nullptr };
+        char* envp[] = { nullptr };
+        execve("./child", argv, envp);
         assert(false);
     } else if (pid) {
         std::cout << "[" << std::to_string(getpid()) << "] ";
