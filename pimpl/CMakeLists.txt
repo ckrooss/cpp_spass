@@ -9,5 +9,3 @@ target_include_directories(main
     PUBLIC
     include
 )
-
-SET(CXX_STANDARD 11)

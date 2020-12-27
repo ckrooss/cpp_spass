@@ -5,15 +5,14 @@ add_executable(run
 
 add_library(modA
     SHARED
-    modA.cpp)
+    modA.cpp
+)
 
 add_library(modB
     SHARED
-    modB.cpp)
+    modB.cpp
+)
 
 target_link_libraries(run
     dl
 )
-
-
-SET(CXX_STANDARD 11)

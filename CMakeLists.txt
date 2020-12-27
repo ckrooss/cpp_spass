@@ -4,7 +4,15 @@ project(Project)
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# ASAN
+add_compile_options("-fsanitize=address")
+link_libraries("-fsanitize=address")
+
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+add_compile_options(-fno-rtti -fno-exceptions)
 
 add_subdirectory(Threads)
 add_subdirectory(Visitor)
