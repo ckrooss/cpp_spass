@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "C_Cpp.default.compileCommands": "build/compile_commands.json",
+    "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}
