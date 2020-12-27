@@ -4,6 +4,7 @@ project(Project)
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_STANDARD 14)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 add_subdirectory(Threads)
 add_subdirectory(Visitor)

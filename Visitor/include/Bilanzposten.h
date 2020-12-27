@@ -2,7 +2,7 @@
 #include <Visitor.h>
 #include <memory>
 
-struct Visitor;
+class Visitor;
 
 class Bilanzposten {
   public:

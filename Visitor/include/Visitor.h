@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 
-struct Gebaude;
-struct Fahrzeug;
+class Gebaude;
+class Fahrzeug;
 
 class Visitor {
   public:

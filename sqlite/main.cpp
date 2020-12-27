@@ -5,7 +5,7 @@
 #include <cerrno>
 #include <cstring>
 
-int cb(void* /*none*/, int cols, char** column_text, char** column_names) {
+int cb(void* /*none*/, int /*cols*/, char** /*column_text*/, char** /*column_names*/) {
     std::cout << "yay\n";
     return 0;
 }

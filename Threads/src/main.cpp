@@ -39,6 +39,7 @@ std::vector<std::thread> start_threads(int number) {
     return threads;
 }
 
+// Auf alle Threads warten
 void join_all(std::vector<std::thread>& threads) {
     for (auto& t : threads) {
         t.join();
