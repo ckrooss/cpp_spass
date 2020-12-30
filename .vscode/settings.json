@@ -3,6 +3,11 @@
     "C_Cpp.default.compileCommands": "build/compile_commands.json",
     "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
     "files.associations": {
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "thread": "cpp"
+    },
+    "clang.cxxflags": [
+        "-std=c++17"
+    ]
 }

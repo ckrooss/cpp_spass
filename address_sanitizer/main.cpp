@@ -8,7 +8,7 @@ using namespace std;
 using Data = vector<string>;
 
 //Return map[key] if it exists in the map, otherwise return the default value
-const string& get_default(const map<string, string>& map, const string& key, const string& dflt) {
+const string get_default(const map<string, string>& map, const string& key, const string& dflt) {
     auto pos = map.find(key);
     return (pos != map.end() ? pos->second : dflt);
 }
