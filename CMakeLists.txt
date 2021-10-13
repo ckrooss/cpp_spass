@@ -12,8 +12,7 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 #link_libraries("-fsanitize=address")
 
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
-add_compile_options(-fno-rtti -fno-exceptions -march=native -mtune=native -O3 -fopenmp)
-add_link_options(-fopenmp)
+add_compile_options(-fno-rtti -fno-exceptions -march=native -mtune=native -O3)
 
 add_subdirectory(Threads)
 add_subdirectory(Visitor)

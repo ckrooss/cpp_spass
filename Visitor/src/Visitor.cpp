@@ -2,8 +2,8 @@
 #include <iostream>
 
 Visitor::Visitor() {
-    std::cout << "Visitor::Visitor()" << std::endl;
-    m_name = "el visitore";
+std::cout << "Visitor::Visitor()" << std::endl;
+m_name = "el visitore";
 }
 
 Visitor::~Visitor() {

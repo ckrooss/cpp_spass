@@ -9,6 +9,7 @@
 #include <thread>
 #include <utility>
 #include <vector>
+#include <array>
 
 #define NVEC 100000000
 
@@ -82,7 +83,7 @@ size_t regular_for_threads_futures(const vector<uint8_t>& _data) {
     constexpr int nthreads = 8;
     size_t cnt{0};
 
-    auto work = [data, nthreads](size_t start_idx, promise<size_t> result) {
+    auto work = [data](size_t start_idx, promise<size_t> result) {
         size_t l_cnt{0};
 
         for (size_t idx = start_idx; idx < NVEC; idx += nthreads) {
@@ -117,7 +118,7 @@ size_t threads_shared_memory(const vector<uint8_t>& _data) {
     constexpr int nthreads = 8;
     std::array<size_t, nthreads> cnt = {0};
 
-    auto work = [data, nthreads, &cnt](size_t start_idx) {
+    auto work = [data, &cnt](size_t start_idx) {
         size_t l_cnt{0};
         for (size_t idx = start_idx; idx < NVEC; idx += nthreads) {
             if (data[idx] >= 128) {
