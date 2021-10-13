@@ -1,3 +1,4 @@
+#pragma once
 #include <iterator>
 
 template <typename T>
@@ -60,7 +61,10 @@ class FilterIterator {
 template <typename T>
 class FilterView {
   public:
-    FilterView(typename FilterIterator<T>::pointer ptr, typename FilterIterator<T>::pointer end, typename FilterIterator<T>::filter_type filter) {
+    using pointer = typename FilterIterator<T>::pointer;
+    using filter_type = typename FilterIterator<T>::filter_type;
+
+    FilterView(pointer ptr, pointer end, filter_type filter) {
         m_ptr = ptr;
         m_end = end;
         m_filter = filter;
@@ -75,7 +79,7 @@ class FilterView {
     }
 
   private:
-    typename FilterIterator<T>::pointer m_ptr;
-    typename FilterIterator<T>::pointer m_end;
-    typename FilterIterator<T>::filter_type m_filter;
+    pointer m_ptr;
+    pointer m_end;
+    filter_type m_filter;
 };

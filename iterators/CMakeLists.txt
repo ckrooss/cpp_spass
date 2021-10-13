@@ -9,6 +9,7 @@ set(CXX_STANDARD_REQUIRED ON)
 add_executable(testContainer
     src/main.cpp
     src/container.cpp
+    src/item.cpp
 )
 
 target_link_libraries(testContainer

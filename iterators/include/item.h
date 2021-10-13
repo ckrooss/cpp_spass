@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <string>
 #include <string_view>
@@ -5,34 +6,14 @@
 
 class Item {
   public:
+    Item() = delete;
     Item(int id, std::string_view name = "", int level = 0) : m_id(id), m_name(name), m_level(level) {
     }
 
-    Item(const Item& other) {
-        m_id = other.m_id;
-        m_name = other.m_name;
-        m_level = other.m_level;
-    }
-
-    Item(Item&& other) {
-        m_id = other.m_id;
-        m_name.swap(other.m_name);
-        m_level = other.m_level;
-    }
-
-    Item& operator=(const Item& other) {
-        m_id = other.m_id;
-        m_name = other.m_name;
-        m_level = other.m_level;
-        return *this;
-    }
-
-    Item& operator=(Item&& other) {
-        m_id = other.m_id;
-        m_name.swap(other.m_name);
-        m_level = other.m_level;
-        return *this;
-    }
+    Item(const Item& other);
+    Item(Item&& other);
+    Item& operator=(const Item& other);
+    Item& operator=(Item&& other);
 
     int m_id;
     std::string m_name;

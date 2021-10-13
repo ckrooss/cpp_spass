@@ -1,3 +1,4 @@
+#pragma once
 #include "item.h"
 #include "iterator.h"
 
@@ -7,37 +8,27 @@
 
 class Container {
   public:
-    using value_type = Item;
-    using container_type = std::vector<Item>;
     Container() = default;
 
-    void insert(Item item) {
-        m_items.push_back(item);
-    }
+    // Types
+    using value_type = Item;
+    using container_type = std::vector<Item>;
 
-    bool remove(int id) {
-        return std::erase_if(m_items, [id](const value_type& item) { return item.m_id == id; });
-    }
+    // Mutation
+    void insert(Item item);
+    bool remove(int id);
 
-    std::size_t size() const {
-        return m_items.size();
-    }
+    // Observers
+    std::size_t size() const;
+    bool empty() const;
 
-    bool empty() const {
-        return m_items.empty();
-    }
+    // Iterators
+    container_type::iterator begin();
+    container_type::iterator end();
 
-    container_type::iterator begin() {
-        return m_items.begin();
-    }
-
-    container_type::iterator end() {
-        return m_items.end();
-    }
-
-    FilterView<value_type> filter_view(std::function<bool(const value_type&)> only_if) {
-        return {&*m_items.begin(), &*m_items.end(), only_if};
-    }
+    // Special Iterators
+    FilterView<value_type> filter_view(FilterView<value_type>::filter_type only_if);
+    FilterView<const value_type> filter_view(FilterView<const value_type>::filter_type only_if) const;
 
   private:
     container_type m_items;
