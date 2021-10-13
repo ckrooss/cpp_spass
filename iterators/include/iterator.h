@@ -1,5 +1,6 @@
 #pragma once
 #include <iterator>
+#include <functional>
 
 template <typename T>
 class FilterIterator {

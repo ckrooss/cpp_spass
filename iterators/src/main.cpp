@@ -1,5 +1,6 @@
 #include "container.h"
 #include <iostream>
+#include <ranges>
 #include <gtest/gtest.h>
 
 struct ContainerTest : ::testing::Test {
@@ -53,5 +54,14 @@ TEST_F(ContainerTest, filter_iterator) {
 
     auto iter = c.filter_view(only_level_one);
 
+    EXPECT_EQ(2, std::distance(iter.begin(), iter.end()));
+}
+
+TEST_F(ContainerTest, cpp20_ranges) {
+    using namespace std::views;
+    insert_some();
+
+    auto only_level_one = [](auto item) { return item.m_level == 1; };
+    auto iter = c | filter(only_level_one);
     EXPECT_EQ(2, std::distance(iter.begin(), iter.end()));
 }

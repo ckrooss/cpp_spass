@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.21)
-project(testContainer)
+project(testContainer CXX)
 
-find_package(GTest REQUIRED)
+#find_package(GTest REQUIRED)
+include(FetchContent)
+FetchContent_Declare(
+  GTest
+  URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
+)
+FetchContent_MakeAvailable(GTest)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CXX_STANDARD_REQUIRED ON)
@@ -14,8 +20,8 @@ add_executable(testContainer
 
 target_link_libraries(testContainer
   PRIVATE
-    GTest::GTest
-    GTest::Main
+    gtest
+    gtest_main
 )
 enable_testing()
 add_test(NAME testContainer COMMAND testContainer)
