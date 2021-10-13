@@ -1,7 +1,8 @@
 #include <Bilanzposten.h>
 #include <Visitor.h>
 
-Bilanzposten::Bilanzposten(double wert, int abschreibungsdauer) : m_wert(wert), m_abschreibungsdauer(abschreibungsdauer) {}
+Bilanzposten::Bilanzposten(double wert, int abschreibungsdauer) : m_wert(wert), m_abschreibungsdauer(abschreibungsdauer) {
+}
 
 Gebaude::Gebaude(double wert, int abschreibungsdauer) : Bilanzposten(wert, abschreibungsdauer) {
 }
