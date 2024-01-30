@@ -20,5 +20,10 @@ class Expensive {
 
     ~Expensive() = default;
 
+    /**
+     * @brief The actual index
+     * @details
+     * Do not use for anything!
+     */
     int m_idx = 0;
 };

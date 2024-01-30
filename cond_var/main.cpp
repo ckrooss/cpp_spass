@@ -13,24 +13,24 @@
 using namespace std;
 using namespace std::literals::chrono_literals;
 
-const int NTHREADS = 5;
-const int NWORK = 100;
-const int BATCH = 5;
+constexpr int NTHREADS = 5;
+constexpr int NWORK = 100;
+constexpr int BATCH = 5;
 
 static mutex g_mutex;
 static condition_variable g_cond;
-static atomic<bool> g_shutdown;
+static atomic_bool g_shutdown;
 static vector<Expensive> g_work;
 
 void log(const string& msg) {
     // Lock mutex to prevent data races on cout
     static mutex g_cout_mutex;
-    lock_guard<mutex> cm{g_cout_mutex};
+    lock_guard cm{g_cout_mutex};
     cout << "[" << this_thread::get_id() << "]"
          << " " << msg << endl;
 }
 
-const string vec2str(const vector<Expensive>& data) {
+string vec2str(const vector<Expensive>& data) {
     // [1,2,3] -> "[1,2,3]"
     string out = "[";
     for (const auto& d : data) {
@@ -42,7 +42,7 @@ const string vec2str(const vector<Expensive>& data) {
 }
 
 void shutdown() {
-    lock_guard<mutex> lock{g_mutex};
+    lock_guard lock{g_mutex};
     g_shutdown = true;
     g_cond.notify_all();
 }
@@ -57,20 +57,16 @@ void block() {
             if (g_shutdown) {
                 break;
             }
-            g_cond.wait(lock);
-            if (g_work.empty()) {
-                log("no work available");
-                continue;
-            }
+            g_cond.wait(lock, []() { return g_shutdown || !g_work.empty(); });
 
             if (g_work.size() < BATCH) {
                 log("some work available - taking all " + to_string(g_work.size()));
-                my_work = move(g_work);
+                my_work = std::move(g_work);
                 g_work.clear();
             } else {
                 log("lot of work available, taking a chunk of " + to_string(BATCH));
                 auto it = next(g_work.begin(), BATCH);
-                move(g_work.begin(), it, back_inserter(my_work));
+                std::move(g_work.begin(), it, back_inserter(my_work));
                 g_work.erase(g_work.begin(), it);
             }
         }
@@ -82,6 +78,7 @@ void block() {
 }
 
 int main() {
+    log("Starting...");
     g_shutdown = false;
     thread threads[NTHREADS];
 
@@ -92,16 +89,18 @@ int main() {
 
     // supply some work
     for (int i = 0; i < NWORK; i++) {
-        lock_guard<mutex> lock{g_mutex};
+        lock_guard lock{g_mutex};
         g_work.emplace_back(i);
         g_cond.notify_one();
     }
 
     // wait for work to finish
     while (true) {
-        lock_guard<mutex> lock{g_mutex};
-        if (g_work.empty()) {
-            break;
+        {
+            unique_lock lock{g_mutex};
+            if (g_work.empty()) {
+                break;
+            }
         }
         this_thread::sleep_for(10ms);
         g_cond.notify_one();

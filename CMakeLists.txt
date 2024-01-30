@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.7)
 project(Project)
 
+add_subdirectory(Catch2)
+
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_STANDARD 17)
@@ -14,6 +16,7 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 add_compile_options(-fno-rtti -fno-exceptions -march=native -mtune=native -O3)
 
+add_subdirectory(jthread)
 add_subdirectory(Threads)
 add_subdirectory(Visitor)
 add_subdirectory(address_sanitizer)

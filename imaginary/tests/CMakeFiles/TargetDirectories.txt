@@ -1,0 +1,3 @@
+/home/chris/Repositories/cpp_spass/imaginary/tests/CMakeFiles/imaginary.dir
+/home/chris/Repositories/cpp_spass/imaginary/tests/CMakeFiles/edit_cache.dir
+/home/chris/Repositories/cpp_spass/imaginary/tests/CMakeFiles/rebuild_cache.dir

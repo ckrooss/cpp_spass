@@ -15,7 +15,7 @@ const int N_COUNTS = 100;
 //static int cnt = 0;
 static std::atomic_int cnt{0};
 
-static std::mutex cnt_lock;
+//static std::mutex cnt_lock;
 
 void counter() {
     int local_cnt = 0;

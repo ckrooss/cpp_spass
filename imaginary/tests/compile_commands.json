@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/chris/Repositories/cpp_spass/imaginary/tests",
+  "command": "/usr/bin/c++  -I/home/chris/Repositories/cpp_spass/imaginary/include -g -o CMakeFiles/imaginary.dir/main.o -c /home/chris/Repositories/cpp_spass/imaginary/main.cpp",
+  "file": "/home/chris/Repositories/cpp_spass/imaginary/main.cpp",
+  "output": "CMakeFiles/imaginary.dir/main.o"
+}
+]

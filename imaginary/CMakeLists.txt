@@ -16,13 +16,8 @@ if(CMAKE_TESTING_ENABLED)
          tests/imaginary_catch.cpp
     )
 
-    add_library(catch-main SHARED
-        tests/catch_main.cpp
-    )
-
-    target_link_libraries(catch-testcases pthread catch-main)
-
+    target_link_libraries(catch-testcases pthread Catch2::Catch2WithMain)
     target_include_directories(catch-testcases PUBLIC include /usr/local/include/)
-    target_include_directories(catch-main PUBLIC include /usr/local/include/)
+    add_test(NAME catch-testcases COMMAND catch-testcases)
 
 endif(CMAKE_TESTING_ENABLED)

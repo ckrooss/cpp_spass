@@ -1,5 +1,6 @@
 project(cond_var)
-
+add_compile_options(-fsanitize=thread)
+add_link_options(-fsanitize=thread)
 add_executable(${PROJECT_NAME}
     main.cpp
 )

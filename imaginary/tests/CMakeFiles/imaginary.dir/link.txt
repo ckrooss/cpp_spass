@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -rdynamic CMakeFiles/imaginary.dir/main.o -o imaginary 
