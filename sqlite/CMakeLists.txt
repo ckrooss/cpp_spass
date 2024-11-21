@@ -5,5 +5,8 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
+    SQLiteCpp
     sqlite3
 )
+
+target_compile_options(${PROJECT_NAME} PUBLIC -fexceptions)

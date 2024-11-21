@@ -3,7 +3,7 @@ project(Project)
 
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 include(FetchContent)
@@ -44,6 +44,19 @@ FetchContent_Declare(njson
 )
 FetchContent_MakeAvailable(njson)
 
+FetchContent_Declare(SQLiteCpp
+    GIT_REPOSITORY    https://github.com/SRombauts/SQLiteCpp.git
+    GIT_TAG           master
+    SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/SQLiteCpp
+    SUBBUILD_DIR      third_party/SQLiteCpp/subbuild
+    BINARY_DIR        third_party/SQLiteCpp/build
+)
+FetchContent_MakeAvailable(SQLiteCpp)
+
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+add_compile_options(-fexperimental-library)
+endif()
 
 # ASAN
 #add_compile_options("-fsanitize=address")
