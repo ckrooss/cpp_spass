@@ -1,7 +1,5 @@
 set (CMAKE_CXX_STANDARD 20)
 
-find_package(fmt REQUIRED)
-
 project(jthread)
 add_compile_options(-fsanitize=thread)
 add_link_options(-fsanitize=thread)

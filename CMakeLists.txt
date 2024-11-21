@@ -3,11 +3,20 @@ project(Project)
 
 enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
-
 include(FetchContent)
+
+FetchContent_Declare(fmt
+    GIT_REPOSITORY    https://github.com/fmtlib/fmt.git
+    GIT_TAG           11.0.2
+    SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt
+    SUBBUILD_DIR      third_party/fmt/subbuild
+    BINARY_DIR        third_party/fmt/build
+)
+FetchContent_MakeAvailable(fmt)
+
 FetchContent_Declare(googletest
     GIT_REPOSITORY    https://github.com/google/googletest.git
     GIT_TAG           v1.15.2
@@ -41,7 +50,7 @@ FetchContent_MakeAvailable(njson)
 #link_libraries("-fsanitize=address")
 
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
-add_compile_options(-fno-rtti -fno-exceptions -march=native -mtune=native -O3)
+add_compile_options(-fno-rtti -fno-exceptions -O2)
 
 add_subdirectory(jthread)
 add_subdirectory(Threads)
