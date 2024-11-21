@@ -1,3 +1,3 @@
 project(lohmann_unicode)
-
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(lohmann_unicode main.cpp)
+target_link_libraries(lohmann_unicode nlohmann_json::nlohmann_json)

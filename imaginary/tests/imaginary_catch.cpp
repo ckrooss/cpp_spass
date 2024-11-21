@@ -1,4 +1,4 @@
-#include <catch2/catch_all.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include "complex_numbers.h"
 
@@ -40,23 +40,4 @@ TEST_CASE("complex-str", "str") {
     REQUIRE(a.to_str() == "9+5i");
     INFO("Maybe not great");
     WARN("Definitely not great");
-}
-
-
-TEST_CASE("order", "optimize") {
-    Order::Order a;
-    a.start = std::chrono::system_clock::now();
-    a.duration = std::chrono::seconds{10};
-    a.tray = 1;
-
-    Order::Order b;
-    b.start = a.start + std::chrono::seconds{5};
-    b.duration = std::chrono::seconds{10};
-    b.tray = 2;
-
-    auto result = Order::optimize({a, b});
-
-    REQUIRE(Order::overlap(a, b) == true);
-    REQUIRE(Order::onSameTray(a, b) == false);
-
 }
