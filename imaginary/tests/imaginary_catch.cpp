@@ -38,6 +38,8 @@ TEST_CASE("complex-multiplication", "multiplication") {
 TEST_CASE("complex-str", "str") {
     auto a = 9_r + 5_im;
     REQUIRE(a.to_str() == "9+5i");
+    INFO("Maybe not great");
+    WARN("Definitely not great");
 }
 
 

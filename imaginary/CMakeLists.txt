@@ -2,22 +2,26 @@ project(imaginary)
 
 add_executable(${PROJECT_NAME}
     main.cpp
-    include/complex_numbers.h
 )
 
 include_directories(
-    /usr/local/include/
-    include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 
-if(CMAKE_TESTING_ENABLED)
-    add_executable(catch-testcases
-         tests/imaginary_catch.cpp
-    )
+add_library(imaginary-catch-main
+    tests/catch_main.cpp
+)
 
-    target_link_libraries(catch-testcases pthread Catch2::Catch2WithMain)
-    target_include_directories(catch-testcases PUBLIC include /usr/local/include/)
-    add_test(NAME catch-testcases COMMAND catch-testcases)
+add_executable(imaginary-catch
+    tests/imaginary_catch.cpp
+)
 
-endif(CMAKE_TESTING_ENABLED)
+add_executable(imaginary-gtest
+    tests/gtest_main.cpp
+    tests/imaginary_gtest.cpp
+)
+
+find_package(GTest REQUIRED)
+target_link_libraries(imaginary-catch pthread imaginary-catch-main)
+target_link_libraries(imaginary-gtest pthread GTest::gtest)

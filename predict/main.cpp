@@ -100,7 +100,7 @@ size_t regular_for_threads_futures(const vector<uint8_t>& _data) {
     for (int i = 0; i < nthreads; ++i) {
         promise<size_t> p;
         auto fut = p.get_future();
-        threads.push_back({thread(work, i, move(p)), move(fut)});
+        threads.push_back({thread(work, i, std::move(p)), std::move(fut)});
     }
 
     for (auto& [thread, fut] : threads) {

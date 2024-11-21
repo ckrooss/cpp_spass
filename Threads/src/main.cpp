@@ -1,9 +1,6 @@
 #include <iostream>
-#include <memory>
 #include <thread>
-#include <chrono>
 #include <vector>
-#include <mutex>
 #include <atomic>
 #include <cassert>
 
@@ -32,8 +29,8 @@ void counter() {
 std::vector<std::thread> start_threads(int number) {
     std::vector<std::thread> threads;
     for (int idx = number; idx > 0; idx--) {
-        std::thread t(counter);
-        threads.push_back(move(t));
+        //std::thread t(counter);
+        threads.emplace_back(counter);
     }
 
     return threads;

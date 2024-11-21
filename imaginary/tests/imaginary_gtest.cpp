@@ -1,9 +1,13 @@
 #include <gtest/gtest.h>
-#include "complex.h"
+#include "complex_numbers.h"
 
 TEST(imaginary, init) {
     auto a = 2_r;
     auto b = 2_im;
+    Complex c{2, 0};
+    Complex d{0, 2};
+    EXPECT_EQ(a, c);
+    EXPECT_EQ(b, d);
 }
 
 TEST(imaginary, addition) {
