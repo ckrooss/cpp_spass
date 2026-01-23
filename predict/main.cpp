@@ -32,7 +32,7 @@ class Timer {
 };
 
 template <typename T>
-void run_test(const char* name, int count, size_t (*fn)(const T& data), const T& data, size_t result) {
+void run_test(const char* name, int count, size_t (*fn)(const T& data), const T& data, [[maybe_unused]] size_t result) {
     cout << name;
     fn(data); // warmup
 
