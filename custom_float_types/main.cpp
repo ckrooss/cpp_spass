@@ -35,7 +35,7 @@ static_assert(ipow<u8>(2, 0) == 1);
 static_assert(ipow<u8>(2, 1) == 2);
 static_assert(ipow<u8>(2, 2) == 4);
 static_assert(ipow<u8>(2, 3) == 8);
-static_assert(ipow<u8>(2, 4) == 16);;
+static_assert(ipow<u8>(2, 4) == 16);
 static_assert(ipow<u8>(2, 5) == 32);
 static_assert(ipow<u8>(2, 6) == 64);
 static_assert(ipow<u64>(2, 32) == 4294967296);
@@ -109,7 +109,7 @@ class minifloat {
         println("-> data = {}\n", data);
     }
 
-    constexpr float to_float() const {
+    [[nodiscard]] constexpr float to_float() const {
         println("<- {}", __PRETTY_FUNCTION__);
         println("<- data = {}", data);
         storage s = (data >> (F::MANT + F::EXP));
@@ -128,6 +128,21 @@ class minifloat {
         }
 
         return f * ipow<storage>(BASE, e);
+    }
+
+    [[nodiscard]] constexpr minifloat operator+(const minifloat& other) const {
+        // Convert both to float, add, and convert back
+        // This is not the most efficient approach, but it's correct
+        // A more optimized version would operate directly on the bit representation
+        return minifloat(to_float() + other.to_float());
+    }
+
+    [[nodiscard]] constexpr bool operator==(const minifloat& other) const {
+        return data == other.data;
+    }
+
+    [[nodiscard]] constexpr storage raw() const {
+        return data;
     }
 
   private:
@@ -155,3 +170,6 @@ static_assert(minifloat<FP16>(3.145f).to_float() == 3.14453125f);
 static_assert(minifloat<FP32>(3.145f).to_float() == 3.14499998f);
 static_assert(minifloat<FP64>(3.145f).to_float() == 3.14499998f);
 
+// Test operator+
+static_assert((minifloat<FP32>(1.0f) + minifloat<FP32>(2.0f)).to_float() == 3.0f);
+static_assert((minifloat<FP16>(1.5f) + minifloat<FP16>(2.5f)).to_float() == 4.0f);
