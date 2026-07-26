@@ -5,12 +5,12 @@ enable_testing()
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_STANDARD 23)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
-set (CMAKE_CXX_EXTENSIONS OFF)
+set (CMAKE_CXX_EXTENSIONS ON)
 include(FetchContent)
 
 FetchContent_Declare(fmt
     GIT_REPOSITORY    https://github.com/fmtlib/fmt.git
-    GIT_TAG           11.0.2
+    GIT_TAG           12.2.0
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt
     SUBBUILD_DIR      third_party/fmt/subbuild
     BINARY_DIR        third_party/fmt/build
@@ -28,7 +28,7 @@ FetchContent_MakeAvailable(googletest)
 
 FetchContent_Declare(catch2
     GIT_REPOSITORY    https://github.com/catchorg/Catch2.git
-    GIT_TAG           v3.7.1
+    GIT_TAG           v3.15.1
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2
     SUBBUILD_DIR      third_party/catch2/subbuild
     BINARY_DIR        third_party/catch2/build
@@ -37,7 +37,7 @@ FetchContent_MakeAvailable(catch2)
 
 FetchContent_Declare(njson
     GIT_REPOSITORY    https://github.com/nlohmann/json.git
-    GIT_TAG           v3.11.3
+    GIT_TAG           v3.12.0
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/nlohmann_json
     SUBBUILD_DIR      third_party/nlohmann_json/subbuild
     BINARY_DIR        third_party/nlohmann_json/build
@@ -62,7 +62,7 @@ endif()
 #add_compile_options("-fsanitize=address")
 #link_libraries("-fsanitize=address")
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+add_compile_options(-Wall -Wextra -Werror)
 add_compile_options(-fno-rtti -fno-exceptions -O2)
 
 add_subdirectory(jthread)
@@ -81,3 +81,4 @@ add_subdirectory(pimpl)
 add_subdirectory(unit_types)
 add_subdirectory(lohmann_unicode)
 add_subdirectory(custom_float_types)
+add_subdirectory(fmt_logging)

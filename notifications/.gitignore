@@ -1,1 +1,6 @@
 *.user
+*.o
+*.app
+*.stash
+Makefile
+qrc_qml.cpp

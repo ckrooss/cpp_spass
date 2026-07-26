@@ -45,11 +45,11 @@ class Complex {
     int m_imag = 0;
 };
 
-inline Complex operator"" _im(const unsigned long long n) {
+inline Complex operator""_im(const unsigned long long n) {
     return Complex{0, static_cast<int>(n)};
 }
 
-inline Complex operator"" _r(const unsigned long long n) {
+inline Complex operator""_r(const unsigned long long n) {
     return Complex{static_cast<int>(n), 0};
 }
 
