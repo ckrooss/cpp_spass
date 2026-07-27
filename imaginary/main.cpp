@@ -4,9 +4,9 @@
 using namespace std;
 
 int main() {
-     auto a = 1_r;
-     auto b = 1_im;
-     auto c = a + b;
+const     auto a = 4_r + 3_im;
+const     auto b = 2_r + 1_im;
+const     auto c = a + b;
     cout << a << " + " << b << " = " << c << endl;
-
+    cout << a << " * " << b << " = " << a*b << std::endl;
 }

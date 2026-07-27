@@ -7,7 +7,8 @@ class Complex {
     Complex(const int r, const int i) : m_real(r), m_imag(i) {
     }
 
-    Complex& operator+(const Complex& other) {
+
+    Complex& operator+=(const Complex& other) {
         m_real += other.m_real;
         m_imag += other.m_imag;
         return *this;
@@ -22,7 +23,7 @@ class Complex {
         return b;
     }
 
-    Complex& operator*(const Complex& other) {
+    Complex& operator*=(const Complex& other) {
         const auto new_real = (m_real * other.m_real) - (m_imag * other.m_imag);
         const auto new_imag = (m_imag * other.m_real) + (m_real * other.m_imag);
 
@@ -32,10 +33,22 @@ class Complex {
         return *this;
     }
 
+    Complex operator*(const Complex& other) const{
+        return {(m_real * other.m_real) - (m_imag * other.m_imag), (m_imag * other.m_real) + (m_real * other.m_imag)};
+    }
+
+    int operator<=>(const Complex& other) const {
+        if((m_real == other.m_real) && (m_imag == other.m_imag)) return 0;
+        return abs() > other.abs() ? 1 : -1;
+    }
+
     bool operator==(const Complex& other) const {
         return (m_real == other.m_real) && (m_imag == other.m_imag);
     }
 
+    [[nodiscard]] int abs() const {
+        return m_real * m_real + m_imag * m_imag;
+    }
     [[nodiscard]] std::string to_str() const {
         return std::to_string(m_real) + "+" + std::to_string(m_imag) + "i";
     }
