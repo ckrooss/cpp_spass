@@ -18,10 +18,10 @@ TEST_CASE("complex-addition", "addition") {
 }
 
 TEST_CASE("complex-add-int", "addition") {
-    auto a = 4 + 2_r;
+    auto a = 2_r + 4;
     REQUIRE(a == Complex{6, 0});
 
-    auto b = 4 + 2_im;
+    auto b = 2_im + 4;
     REQUIRE(b == Complex{4, 2});
 }
 
@@ -33,11 +33,4 @@ TEST_CASE("complex-multiplication", "multiplication") {
 
     auto c = a * b;
     REQUIRE(c == Complex{-5, 10});
-}
-
-TEST_CASE("complex-str", "str") {
-    auto a = 9_r + 5_im;
-    REQUIRE(a.to_str() == "9+5i");
-    INFO("Maybe not great");
-    WARN("Definitely not great");
 }

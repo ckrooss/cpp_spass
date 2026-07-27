@@ -66,7 +66,9 @@ size_t regular_for_omp(const vector<uint8_t>& _data) {
     constexpr int nthreads = 8;
     array<size_t, nthreads> cnt = {0};
 
-#pragma omp parallel for
+#ifdef _OPENMP
+    #pragma omp parallel for
+#endif
     for (int i = 0; i < nthreads; ++i) {
         for (size_t idx = i; idx < NVEC; idx += nthreads) {
             if (data[idx] >= 128) {
