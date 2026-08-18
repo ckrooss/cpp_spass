@@ -12,8 +12,7 @@ FetchContent_Declare(fmt
     GIT_REPOSITORY    https://github.com/fmtlib/fmt.git
     GIT_TAG           12.2.0
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt
-    SUBBUILD_DIR      third_party/fmt/subbuild
-    BINARY_DIR        third_party/fmt/build
+    BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt/build
 )
 FetchContent_MakeAvailable(fmt)
 
@@ -21,8 +20,7 @@ FetchContent_Declare(googletest
     GIT_REPOSITORY    https://github.com/google/googletest.git
     GIT_TAG           v1.15.2
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/googletest
-    SUBBUILD_DIR      third_party/googletest/subbuild
-    BINARY_DIR        third_party/googletest/build
+    BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/googletest/build
 )
 FetchContent_MakeAvailable(googletest)
 
@@ -30,8 +28,7 @@ FetchContent_Declare(catch2
     GIT_REPOSITORY    https://github.com/catchorg/Catch2.git
     GIT_TAG           v3.15.1
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2
-    SUBBUILD_DIR      third_party/catch2/subbuild
-    BINARY_DIR        third_party/catch2/build
+    BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2/build
 )
 FetchContent_MakeAvailable(catch2)
 
@@ -39,8 +36,7 @@ FetchContent_Declare(njson
     GIT_REPOSITORY    https://github.com/nlohmann/json.git
     GIT_TAG           v3.12.0
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/nlohmann_json
-    SUBBUILD_DIR      third_party/nlohmann_json/subbuild
-    BINARY_DIR        third_party/nlohmann_json/build
+    BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/nlohmann_json/build
 )
 FetchContent_MakeAvailable(njson)
 
@@ -48,8 +44,7 @@ FetchContent_Declare(SQLiteCpp
     GIT_REPOSITORY    https://github.com/SRombauts/SQLiteCpp.git
     GIT_TAG           master
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/SQLiteCpp
-    SUBBUILD_DIR      third_party/SQLiteCpp/subbuild
-    BINARY_DIR        third_party/SQLiteCpp/build
+    BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/SQLiteCpp/build
 )
 FetchContent_MakeAvailable(SQLiteCpp)
 

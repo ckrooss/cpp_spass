@@ -1,10 +1,4 @@
 {
-    "dev.containers.experimentalAppleContainerSupport": true,
-    "exensions.recommendations": [
-        "ms-vscode.cmake-tools",
-        "llvm-vs-code-extensions.vscode-clangd"
-    ],
     "cmake.options.statusBarVisibility": "compact",
-    "terminal.integrated.automationShell.linux": "/bin/bash",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
 }

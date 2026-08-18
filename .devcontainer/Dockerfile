@@ -31,4 +31,4 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 
 RUN echo 'DEBUGINFOD_URLS=""' >> /etc/environment
 RUN echo 'export DEBUGINFOD_URLS=""' >> /root/.bashrc
-ENTRYPOINT [ "/bin/bash" ]
+CMD /usr/bin/bash
