@@ -3,92 +3,114 @@
 #include <cstddef>
 #include <iostream>
 #include <cassert>
-#include <bitset>
-#include <array>
 #include <new>
-#include <stdexcept>
 #include <vector>
+#include <fmt/format.h>
+#include <fmt/std.h>
+#include <fmt/ranges.h>
 
-#define ArraySize 10
-inline std::array<std::vector<int>::value_type, ArraySize> data;
-inline std::bitset<ArraySize> occupied;
+template<typename T>
+struct Allocation {
+    T *begin;
+    std::size_t size;
+};
 
-template <typename T>
+template<typename T>
+auto format_as(const Allocation<T> &o) {
+    return fmt::format("Allocation(begin={}, size={})", static_cast<void*>(o.begin), o.size);
+}
+
+template<typename T>
 struct ArrayAllocator {
     using value_type = T;
+    std::size_t m_max_size;
+    T* m_data;
+    std::vector<Allocation<T>> m_allocations;
 
-    void validate(const T* ptr) const {
-        assert(ptr >= data.begin() && ptr < data.end());
+    ArrayAllocator(std::size_t max_size) {
+        fmt::println("ArrayAllocator");
+        m_max_size = max_size;
+        m_data = (T*)malloc(max_size * sizeof(T));
     }
 
-    void clear() {
-        data = {};
-        occupied = {};
+    ArrayAllocator(const ArrayAllocator& other) {
+        *this = other;
     }
 
-    std::size_t usage() const {
-        return occupied.count();
-    }
+    ArrayAllocator& operator=(const ArrayAllocator& other) {
+        m_data = other.m_data;
+        m_allocations = other.m_allocations;
+        m_max_size = other.m_max_size;
 
-    void deallocate(T* p, std::size_t n) const {
-        validate(p);
-        
-        auto p_off = ptr_to_off(p);
-        std::cout << this << " " << __func__ << "(n=" << n << ") at " << p_off << " (=" << p << ")" << std::endl;
+        T* new_data = (T*)malloc(m_max_size * sizeof(T));
+        std::ptrdiff_t offset = (new_data - m_data);
+        m_data = new_data;
 
-        for (std::size_t off = p_off; off < p_off + n; ++off) {
-            if(!occupied[off]) {
-                throw std::runtime_error("double-free");
-            }
-            occupied.reset(off);
-        }
-        
-        print_allocation();
-    }
-
-    std::size_t ptr_to_off(const T* ptr) const {
-        return static_cast<std::size_t>(ptr - data.begin());
-    }
-
-    T* off_to_ptr(std::size_t off) const {
-        return static_cast<T*>(data.begin() + off);
-    }
-
-    [[nodiscard]] T* allocate(std::size_t n) const {
-        const auto new_pos = find_space(n);
-        std::cout << this << " " << __func__ << "(n=" << n << ") at " << new_pos << std::endl;
-
-        for (std::size_t off = new_pos; off < new_pos + n; ++off) {
-            occupied.set(off);
+        for (auto&& it: m_allocations) {
+            it.begin += offset;
         }
 
-        print_allocation();
+        return *this;
 
-        return off_to_ptr(new_pos);
     }
 
-    std::size_t find_space(const std::size_t n) const {
-        std::size_t zeroes = 0;
+    ArrayAllocator(ArrayAllocator&& other) noexcept {
+        *this = other;
+    }
 
-        for(std::size_t off = 0; off < occupied.size(); ++off) {
-            if(!occupied[off]) {
-                if(++zeroes == n) {
-                    return off - (zeroes - 1);
+    ArrayAllocator& operator=(ArrayAllocator&& other) noexcept {
+        m_data = other.m_data;
+        m_allocations = other.m_allocations;
+        m_max_size = other.m_max_size;
+
+        other.m_data = nullptr;
+        other.m_allocations.clear();
+        other.m_max_size = 0;
+        return *this;
+    }
+
+    ~ArrayAllocator() {
+        fmt::println("~ArrayAllocator");
+        free(m_data);
+        m_data = nullptr;
+    }
+
+    void deallocate(T *p, std::size_t n) {
+        fmt::println("deallocate(p={}, n={})", (void*)p, n);
+
+        for (auto it = m_allocations.begin(); it != m_allocations.end();) {
+            if (it->begin == p) {
+                if (it->size == n) {
+                    it = m_allocations.erase(it);
+                    continue;
+                } else {
+                    it->begin += n;
+                    it->size -= n;
                 }
             }
-            else {
-                zeroes = 0;
-            }
+            ++it;
         }
-        throw std::bad_alloc();
-        
     }
 
-    void print_allocation() const {
-        std::cout << "Allocation: [";
-        for (std::size_t off = 0; off < occupied.size(); ++off) {
-            std::cout << occupied[off];
+    [[nodiscard]] T *allocate(std::size_t n) {
+        fmt::println("allocate({})", n);
+        auto* begin = m_data;
+
+        for (auto&& alloc: m_allocations) {
+            begin = alloc.begin + alloc.size;
         }
-        std::cout << "]" << std::endl;
+
+        if (begin + n > m_data + m_max_size) {
+            throw std::bad_alloc();
+        }
+
+        m_allocations.emplace_back(Allocation{.begin = begin, .size = n});
+        fmt::println("m_allocations={}", m_allocations);
+
+        for (int nn = n; nn > 0; --nn) {
+            *(begin + nn) = 69;
+        }
+
+        return begin;
     }
 };

@@ -39,20 +39,20 @@ struct StateMachine {
 
     template<typename State>
     void transition() {
-        std::visit([this](auto* state) {
+        std::visit([](auto* state) {
             delete state;
         }, m_state);
         m_state = new State();
     }
 
-    constexpr void process_event(const eCookingLimitReached& event) {
+    constexpr void process_event([[maybe_unused]] const eCookingLimitReached& event) {
         std::visit(Overload{
             [&](Idle*) { PRINT_FN; transition<WarningShown>(); },
             [] (auto&) {PRINT_FN}
         }, m_state);
     }
 
-    constexpr void process_event(const eWarningAccepted& event) {
+    constexpr void process_event([[maybe_unused]] const eWarningAccepted& event) {
         std::visit(Overload{
             [&](WarningShown*) { PRINT_FN; transition<Idle>(); },
             [] (auto&) {PRINT_FN}

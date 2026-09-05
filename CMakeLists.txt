@@ -10,7 +10,7 @@ include(FetchContent)
 
 FetchContent_Declare(fmt
     GIT_REPOSITORY    https://github.com/fmtlib/fmt.git
-    GIT_TAG           12.2.0
+    GIT_TAG           758d39eb239e6554d3ac0659b6f592fcd5317c24
     SOURCE_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt
     BINARY_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmt/build
 )
@@ -58,7 +58,7 @@ endif()
 #link_libraries("-fsanitize=address")
 
 add_compile_options(-Wall -Wextra -Werror)
-add_compile_options(-fno-rtti -fno-exceptions -O2)
+add_compile_options(-fno-rtti -Os -flto=thin)
 
 add_subdirectory(jthread)
 add_subdirectory(Threads)
@@ -77,3 +77,6 @@ add_subdirectory(unit_types)
 add_subdirectory(lohmann_unicode)
 add_subdirectory(custom_float_types)
 add_subdirectory(fmt_logging)
+add_subdirectory(syslog)
+add_subdirectory(allocators)
+add_subdirectory(statemachine)
