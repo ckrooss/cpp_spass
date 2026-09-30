@@ -1,53 +1,52 @@
 #include <iostream>
-#include <unistd.h>
 #include <chrono>
 #include <thread>
-#include <cassert>
-#include <random>
 #include <vector>
-#include <mutex>
-#include <algorithm>
 
 using namespace std;
 using namespace literals::chrono_literals;
 
-struct Slow {
-    Slow() {
-        cout << "Slow::Slow()" << endl;
-        this_thread::sleep_for(100ms);
-    }
+namespace {
+    struct Slow {
+        Slow() {
+            cout << "Slow::Slow()" << endl;
+            this_thread::sleep_for(100ms);
+        }
 
-    Slow(const Slow&) {
-        cout << "Slow(const Slow&)" << endl;
-        this_thread::sleep_for(100ms);
-    }
+        Slow(const Slow&) {
+            cout << "Slow(const Slow&)" << endl;
+            this_thread::sleep_for(100ms);
+        }
 
-    Slow(Slow&&) {
-        cout << "Slow(Slow&&)" << endl;
-        this_thread::sleep_for(100ms);
-    }
+        Slow(Slow&&) noexcept {
+            cout << "Slow(Slow&&)" << endl;
+        }
 
-    Slow& operator=(const Slow&) {
-        cout << "Slow& operator=(const Slow&)" << endl;
-        this_thread::sleep_for(100ms);
-        return *this;
-    }
+        Slow& operator=(const Slow&) {
+            cout << "Slow& operator=(const Slow&)" << endl;
+            this_thread::sleep_for(100ms);
+            return *this;
+        }
 
-    Slow& operator=(Slow&&) {
-        cout << "Slow& operator=(Slow&&)" << endl;
-        this_thread::sleep_for(100ms);
-        return *this;
-    }
-};
+        Slow& operator=(Slow&&) noexcept {
+            cout << "Slow& operator=(Slow&&)" << endl;
+            return *this;
+        }
+    };
+}
 
 int main() {
     cout << "Building vector..." << endl;
-    vector<Slow> slows{0};
+    vector<Slow> slows{10};
     cout << "done" << endl;
 
     cout << "Resizing vector..." << endl;
     slows.resize(10);
     cout << "done" << endl;
+
+    cout << "Removing first..." << endl;
+    slows.erase(slows.begin());
+    cout << "Done" << endl;
 
     cout << "Starting for loop..." << endl;
     for (auto& _ : slows) {

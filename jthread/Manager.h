@@ -10,8 +10,8 @@
 using namespace std::chrono_literals;
 
 class Manager {
-  public:
-    static Manager& instance() {
+public:
+    static Manager &instance() {
         static Manager manager;
         return manager;
     }
@@ -40,18 +40,18 @@ class Manager {
         }
     }
 
-  private:
+private:
     std::deque<int> m_q;
     std::mutex m_mtx;
     std::jthread m_thread;
     std::condition_variable_any m_cv;
 
     Manager() {
-        m_thread = std::jthread([this](const std::stop_token&stoken) { loop(stoken); });
+        m_thread = std::jthread([this](const std::stop_token &stoken) { loop(stoken); });
     };
 
-    void loop(const std::stop_token&stoken) {
-        std::unique_lock lk(m_mtx);
+    void loop(const std::stop_token &stoken) {
+        std::unique_lock lk{m_mtx};
 
         while (!stoken.stop_requested()) {
             m_cv.wait(lk, stoken, [this]() { return !m_q.empty(); });
@@ -59,13 +59,8 @@ class Manager {
             if (!m_q.empty()) {
                 auto val = m_q.back();
                 m_q.pop_back();
-                std::this_thread::sleep_for(200ms);
                 fmt::printf("Processing %d\n", val);
             }
-        }
-
-        if (stoken.stop_requested()) {
-            fmt::printf("Stop requested\n");
         }
     }
 };
