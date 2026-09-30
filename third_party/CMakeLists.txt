@@ -1,0 +1,6 @@
+add_subdirectory(Catch2)
+add_subdirectory(fmt)
+add_subdirectory(googletest)
+add_subdirectory(json)
+add_subdirectory(SQLiteCpp)
+add_subdirectory(mp-units/src)
