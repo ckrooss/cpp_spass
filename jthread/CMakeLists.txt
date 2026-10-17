@@ -1,11 +1,8 @@
-set (CMAKE_CXX_STANDARD 20)
-
-project(jthread)
-add_executable(${PROJECT_NAME}
+add_executable(jthread
     main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(jthread
     pthread
     fmt::fmt
 )

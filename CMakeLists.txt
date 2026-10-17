@@ -16,9 +16,27 @@ endif()
 #link_libraries("-fsanitize=address")
 
 add_compile_options(-Wall -Wextra -Werror)
-add_compile_options(-fno-rtti -Os -flto=thin)
 
-add_subdirectory(third_party)
+include(cmake/CPM.cmake)
+CPMAddPackage("gh:fmtlib/fmt#12.2.0")
+CPMAddPackage("gh:nlohmann/json@3.12.0")
+CPMAddPackage("gh:catchorg/Catch2@3.16.0")
+CPMAddPackage("gh:google/googletest@1.18.0")
+CPMAddPackage("gh:SRombauts/SQLiteCpp#3.4.0")
+CPMAddPackage("gh:gsl-lite/gsl-lite@1.1.1")
+CPMFindPackage(
+        NAME mp-units
+        VERSION 2.6.0
+        GIT_TAG 7de22b0de37eceb4037594f2f2800ef3957738f9
+        GITHUB_REPOSITORY mpusz/mp-units
+        SOURCE_SUBDIR src
+        SYSTEM YES
+        EXCLUDE_FROM_ALL YES
+        OPTIONS
+        "MP_UNITS_BUILD_INSTALL OFF"
+        "MP_UNITS_USE_LIBFMT ON"
+#        "MP_UNITS_BUILD_CXX_MODULES ON"
+)
 
 add_subdirectory(jthread)
 add_subdirectory(Threads)

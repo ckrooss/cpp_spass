@@ -40,10 +40,10 @@ int main() {
     doPushBack23(v, 3);
     doPushBackPlain(v, 3);
 
-    std::map<int, int> m;
+    //std::map<int, int> m;
     //doPushBack11(m, 3);
     //doPushBack23(m, 3);
-    doPushBackPlain(m, 3);
+    //doPushBackPlain(m, 3);
 
 
 }
